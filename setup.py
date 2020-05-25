@@ -1,5 +1,3 @@
-import time
-import subprocess
 from setuptools import setup
 import DateVersioning
 
