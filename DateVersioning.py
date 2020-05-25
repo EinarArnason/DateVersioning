@@ -4,6 +4,10 @@ import sys
 import logging
 
 
+class GitDirectoryError(Exception):
+    """Directory not a git repository"""
+
+
 def generate(directory=".") -> str:
     commitDate = 0
     try:
@@ -15,12 +19,12 @@ def generate(directory=".") -> str:
             .strip()
         )
     except subprocess.CalledProcessError:
-        raise Exception("Directory not a git repository")
+        raise GitDirectoryError("Directory not a git repository")
     return time.strftime("%y.%j.%k%M%S", time.localtime(commitDate))
 
 
 if __name__ == "__main__":
     try:
         print(generate(**dict(arg.split("=") for arg in sys.argv[1:])))
-    except Exception as e:
+    except GitDirectoryError as e:
         logging.error("%s %s", "[DateVersioning]", e)
