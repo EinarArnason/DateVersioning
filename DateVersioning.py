@@ -20,7 +20,7 @@ def generate(directory=".") -> str:
         )
     except subprocess.CalledProcessError:
         raise GitDirectoryError("Directory not a git repository")
-    return time.strftime("%y.%j.%k%M%S", time.localtime(commitDate))
+    return time.strftime("%y.%j.%H%M%S", time.localtime(commitDate))
 
 
 if __name__ == "__main__":
